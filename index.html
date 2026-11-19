@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FACT OR FAKE — Cosmic Marketplace</title>
+  <meta name="description" content="A novelty shop offering imaginative planet-themed collectibles and certificates.">
+  <style>
+    :root {
+      --bg: #070816;
+      --panel: rgba(18, 21, 48, .88);
+      --text: #f7f8ff;
+      --muted: #b9bfdc;
+      --accent: #8d7aff;
+      --accent2: #35d7ff;
+      --line: rgba(255,255,255,.12);
+      --good: #6df0b0;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(102,76,255,.28), transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(20,190,255,.16), transparent 25%),
+        linear-gradient(180deg, #070816, #0a0d22 55%, #060712);
+      min-height: 100vh;
+    }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(7,8,22,.78);
+      border-bottom: 1px solid var(--line);
+    }
+    nav {
+      max-width: 1180px; margin: auto; padding: 16px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { font-weight: 800; letter-spacing: .5px; font-size: 1.15rem; }
+    .brand span { color: var(--accent2); }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 18px; }
+    nav a:hover { color: white; }
+    .hero {
+      max-width: 1180px; margin: auto; padding: 86px 22px 64px;
+      display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center;
+    }
+    h1 { font-size: clamp(2.7rem, 7vw, 5.8rem); line-height: .95; margin: 0 0 22px; }
+    .gradient { background: linear-gradient(90deg, #fff, #8edfff, #a28cff); -webkit-background-clip: text; color: transparent; }
+    .hero p { color: var(--muted); font-size: 1.15rem; line-height: 1.7; max-width: 650px; }
+    .buttons { display:flex; flex-wrap:wrap; gap:12px; margin-top:28px; }
+    .btn {
+      display:inline-block; padding:13px 18px; border-radius:12px; text-decoration:none;
+      font-weight:700; border:1px solid var(--line); cursor:pointer; color:white;
+      background: linear-gradient(135deg, #705eff, #3b8fff);
+    }
+    .btn.secondary { background: transparent; }
+    .orbit {
+      min-height: 390px; display:grid; place-items:center; position:relative;
+    }
+    .planet {
+      width: 250px; height:250px; border-radius:50%;
+      background:
+        radial-gradient(circle at 30% 28%, #ffe2bd 0 5%, transparent 6%),
+        radial-gradient(circle at 58% 42%, #b35e43 0 10%, transparent 11%),
+        radial-gradient(circle at 35% 65%, #d49355 0 12%, transparent 13%),
+        radial-gradient(circle at 60% 70%, #7d3d50 0 7%, transparent 8%),
+        radial-gradient(circle at 35% 30%, #ffcb79, #9c4f9f 45%, #24276e 75%, #090a20);
+      box-shadow: 0 0 70px rgba(83,119,255,.65), inset -35px -25px 55px rgba(0,0,0,.45);
+      animation: float 5s ease-in-out infinite;
+    }
+    .ring {
+      position:absolute; width:380px; height:95px; border:2px solid rgba(151,221,255,.45);
+      border-radius:50%; transform:rotate(-18deg);
+    }
+    @keyframes float { 50% { transform:translateY(-12px); } }
+    section { max-width:1180px; margin:auto; padding:62px 22px; }
+    .section-title { font-size:2rem; margin:0 0 10px; }
+    .section-sub { color:var(--muted); margin:0 0 28px; }
+    .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .card {
+      background:var(--panel); border:1px solid var(--line); border-radius:20px;
+      overflow:hidden; box-shadow:0 18px 50px rgba(0,0,0,.22);
+    }
+    .planet-art { height:190px; display:grid; place-items:center; background:radial-gradient(circle, #1a214f, #0b0d20); }
+    .mini { width:125px; height:125px; border-radius:50%; box-shadow:0 0 35px rgba(96,150,255,.4), inset -20px -15px 30px rgba(0,0,0,.45); }
+    .mars { background:radial-gradient(circle at 35% 30%, #f6a070, #a84734 55%, #401e2a); }
+    .ice { background:radial-gradient(circle at 35% 30%, #e7ffff, #70c9dd 48%, #2d5a9b); }
+    .gold { background:radial-gradient(circle at 30% 30%, #fff0a5, #c38c3f 45%, #573a7b); }
+    .card-body { padding:20px; }
+    .card h3 { margin:0 0 8px; }
+    .price { font-size:1.35rem; font-weight:800; color:var(--good); margin:14px 0; }
+    .tag { display:inline-block; font-size:.78rem; padding:5px 8px; border-radius:999px; background:rgba(141,122,255,.14); color:#cfc8ff; }
+    .cart {
+      position:fixed; right:20px; bottom:20px; z-index:20;
+      background:#121631; border:1px solid var(--line); border-radius:16px;
+      padding:14px 16px; min-width:250px; box-shadow:0 15px 45px rgba(0,0,0,.4);
+    }
+    .cart strong { color:var(--accent2); }
+    .cart button { margin-top:10px; width:100%; }
+    .notice {
+      background:rgba(255,208,102,.08); border:1px solid rgba(255,208,102,.22);
+      color:#f4df9a; border-radius:14px; padding:16px; line-height:1.6;
+    }
+    footer { border-top:1px solid var(--line); color:var(--muted); text-align:center; padding:35px 20px 100px; }
+    @media (max-width:800px) {
+      .hero { grid-template-columns:1fr; padding-top:55px; }
+      .grid { grid-template-columns:1fr; }
+      nav div:last-child { display:none; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="brand">FACT <span>OR FAKE</span> ✦</div>
+    <div>
+      <a href="#planets">Planets</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <div>
+      <span class="tag">FACT OR FAKE MARKETPLACE</span>
+      <h1>Own a piece of your <span class="gradient">imaginary universe.</span></h1>
+      <p>Explore fictional high-value listings for planets, locations, galaxies, and universes. Each listing includes a computed estimate, coordinates or location data where applicable, and a clear Fact-or-Fake status.</p>
+      <div class="buttons">
+        <a class="btn" href="#planets">Explore Planets</a>
+        <a class="btn secondary" href="#about">How It Works</a>
+      </div>
+    </div>
+    <div class="orbit">
+      <div class="ring"></div>
+      <div class="planet"></div>
+    </div>
+  </div>
+
+  <section id="planets">
+    <h2 class="section-title">Planets, locations & cosmic listings</h2>
+    <p class="section-sub">Browse fictional cosmic listings with high illustrative prices and computed listing data.</p>
+    <div class="grid">
+      <article class="card">
+        <div class="planet-art"><div class="mini mars"></div></div>
+        <div class="card-body">
+          <span class="tag">PLANET</span>
+          <h3>Aurelia</h3>
+          <p>Fictional desert planet. Location: 99-s.</p>
+          <p><strong>Computed valuation:</strong> $4,750,000,000</p>
+          <div class="price">$4.75B</div>
+          <button class="btn" onclick="addToCart('Aurelia', 4750000000)">Add listing</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="planet-art"><div class="mini ice"></div></div>
+        <div class="card-body">
+          <span class="tag">PLANET</span>
+          <h3>Neptara</h3>
+          <p>Fictional ice world. Location: 99-s.</p>
+          <p><strong>Computed valuation:</strong> $12,800,000,000</p>
+          <div class="price">$12.8B</div>
+          <button class="btn" onclick="addToCart('Neptara', 12800000000)">Add listing</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="planet-art"><div class="mini gold"></div></div>
+        <div class="card-body">
+          <span class="tag">PLANET</span>
+          <h3>Solara</h3>
+          <p>Fictional golden world. Location: 99-s.</p>
+          <p><strong>Computed valuation:</strong> $85,000,000,000</p>
+          <div class="price">$85B</div>
+          <button class="btn" onclick="addToCart('Solara', 85000000000)">Add listing</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="planet-art"><div class="mini mars"></div></div>
+        <div class="card-body">
+          <span class="tag">GALAXY</span>
+          <h3>Andromeda Prime</h3>
+          <p>Fictional galaxy listing. Location: 99-s.</p>
+          <p><strong>Computed valuation:</strong> $8,500,000,000,000</p>
+          <div class="price">$8.5T</div>
+          <button class="btn" onclick="addToCart('Andromeda Prime', 8500000000000)">Add listing</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="planet-art"><div class="mini ice"></div></div>
+        <div class="card-body">
+          <span class="tag">GALAXY</span>
+          <h3>Vespera Galaxy</h3>
+          <p>Fictional spiral galaxy. Location: 99-s.</p>
+          <p><strong>Computed valuation:</strong> $42,000,000,000,000</p>
+          <div class="price">$42T</div>
+          <button class="btn" onclick="addToCart('Vespera Galaxy', 42000000000000)">Add listing</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="planet-art"><div class="mini gold"></div></div>
+        <div class="card-body">
+          <span class="tag">UNIVERSE</span>
+          <h3>Universe X-01</h3>
+          <p>Fictional universe listing. Location: 99-s.</p>
+          <p><strong>Computed valuation:</strong> $900,000,000,000,000</p>
+          <div class="price">$900T</div>
+          <button class="btn" onclick="addToCart('Universe X-01', 900000000000000)">Add listing</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">What the listings mean</h2>
+    <div class="notice">
+      <strong>FACT OR FAKE:</strong> The marketplace uses fictional listings and illustrative prices for entertainment,
+      simulation, and educational purposes. The “computed valuation” is a website-generated calculation, not an appraisal.
+      No listing transfers legal ownership, title, jurisdiction, land rights, mineral rights, planetary rights,
+      astronomical objects, galaxies, universes, or any other real property. Real astronomical locations are shown
+      only as reference points and are not offered for sale.
+    </div>
+  </section>
+
+  <section id="computation">
+    <h2 class="section-title">Computation & location</h2>
+    <p class="section-sub">Each fictional listing can display a transparent illustrative calculation.</p>
+    <div class="notice">
+      <strong>Example computation:</strong> Base value × rarity factor × size factor × location factor =
+      illustrative listing price. The result is a fictional estimate and has no real-world market or legal value.
+      <br><br>
+      <strong>Location:</strong> A listing may show a fictional sector, catalog number, coordinates, or a real
+      astronomical reference. A location reference does not mean that the object is legally available for purchase.
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p class="section-sub">Replace this section with your real business email, address, policies, and payment/checkout provider.</p>
+    <a class="btn" href="mailto:your-email@example.com">Email the shop</a>
+  </section>
+</main>
+
+<div class="cart">
+  <div>Cart: <strong id="cartCount">0</strong> item(s)</div>
+  <div>Total: <strong>$<span id="cartTotal">0.00</span></strong></div>
+  <button class="btn" onclick="checkout()">Proceed to checkout</button>
+</div>
+
+<footer>
+  © 2026 FACT OR FAKE · Fictional marketplace & valuation simulator · No real celestial property is sold
+</footer>
+
+<script>
+  let cart = [];
+  function addToCart(name, price) {
+    cart.push({name, price});
+    updateCart();
+    alert(name + " was added to your collection.");
+  }
+  function updateCart() {
+    document.getElementById("cartCount").textContent = cart.length;
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById("cartTotal").textContent = total.toFixed(2);
+  }
+  function checkout() {
+    if (!cart.length) {
+      alert("Your cart is empty.");
+      return;
+    }
+    alert("Demo checkout: connect this button to a payment processor such as Stripe or PayPal before accepting payments.");
+  }
+</script>
+</body>
+</html>
